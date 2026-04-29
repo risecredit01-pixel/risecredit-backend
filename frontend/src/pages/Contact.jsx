@@ -79,7 +79,7 @@ function Contact() {
                   <div className="contact-icon"><FiMail /></div>
                   <div className="contact-details">
                     <p className="contact-label">Email Support</p>
-                    <p className="contact-value"><a href="mailto:risecredit01@gmail.com">risecredit01@gmail.com</a></p>
+                    <p className="contact-value"><a href="https://mail.google.com/mail/?view=cm&fs=1&to=risecredit01@gmail.com" target="_blank" rel="noopener noreferrer">risecredit01@gmail.com</a></p>
                     <p className="contact-sub">Response within 1 hour</p>
                   </div>
                 </div>
