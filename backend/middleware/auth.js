@@ -8,7 +8,7 @@ const auth = (req, res, next) => {
       return res.status(401).json({ success: false, message: 'No authentication token, access denied' });
     }
 
-    const verified = jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret_123');
+    const verified = jwt.verify(token, process.env.JWT_SECRET || 'rise_credit_default_secure_key_2024');
     if (!verified) {
       return res.status(401).json({ success: false, message: 'Token verification failed, authorization denied' });
     }
