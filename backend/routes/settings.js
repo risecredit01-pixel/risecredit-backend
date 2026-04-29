@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const auth = require('../middleware/auth');
 const rateLimit = require('express-rate-limit');
-const AuditLog = require('../models/AuditLog');
+
 
 // Brute-force protection: Limit login attempts to 5 per 15 minutes
 const loginLimiter = rateLimit({
@@ -73,23 +73,13 @@ router.post('/verify', loginLimiter, async (req, res) => {
     if (isMatch) {
       console.log('✅ Admin login successful');
       
-      // Log successful login
-      await new AuditLog({
-        action: 'LOGIN_SUCCESS',
-        details: 'Admin accessed the dashboard',
-        ip: req.ip || req.headers['x-forwarded-for']
-      }).save();
+
 
       const secret = process.env.JWT_SECRET || 'rise_credit_default_secure_key_2024';
       const token = jwt.sign({ id: 'admin' }, secret, { expiresIn: '4h' });
       res.json({ success: true, token, message: 'Authenticated' });
     } else {
-      // Log failed login
-      await new AuditLog({
-        action: 'LOGIN_FAILURE',
-        details: `Failed login attempt with input length: ${password.length}`,
-        ip: req.ip || req.headers['x-forwarded-for']
-      }).save();
+
       
       res.status(401).json({ success: false, message: 'Invalid password' });
     }
@@ -152,15 +142,6 @@ router.post('/password', auth, async (req, res) => {
   }
 });
 
-// GET /api/settings/logs
-// Protected by auth middleware
-router.get('/logs', auth, async (req, res) => {
-  try {
-    const logs = await AuditLog.find().sort({ timestamp: -1 }).limit(100);
-    res.json(logs);
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-});
+
 
 module.exports = router;

@@ -36,7 +36,7 @@ router.get('/:id', auth, async (req, res) => {
   }
 });
 
-const AuditLog = require('../models/AuditLog');
+
 
 // DELETE /api/apply/:id (Protected)
 router.delete('/:id', auth, async (req, res) => {
@@ -44,12 +44,7 @@ router.delete('/:id', auth, async (req, res) => {
     const deleted = await Application.findByIdAndDelete(req.params.id);
     if (!deleted) return res.status(404).json({ message: 'Application not found' });
     
-    // Log deletion
-    await new AuditLog({
-      action: 'DELETE_APPLICATION',
-      details: `Deleted application ID: ${req.params.id}`,
-      ip: req.ip || req.headers['x-forwarded-for']
-    }).save();
+
 
     res.json({ success: true, message: 'Application deleted successfully' });
   } catch (error) {
