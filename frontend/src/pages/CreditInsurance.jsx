@@ -80,7 +80,7 @@ function CreditInsurance() {
     };
 
     try {
-      await fetch('/api/insurance', {
+      await fetch('https://risecredit-api.onrender.com/api/insurance', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(orderPayload)

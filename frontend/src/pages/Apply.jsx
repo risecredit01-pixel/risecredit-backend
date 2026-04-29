@@ -19,7 +19,7 @@ function Apply() {
     e.preventDefault();
     setLoading(true);
     try {
-      const r = await fetch('/api/apply', {
+      const r = await fetch('https://risecredit-api.onrender.com/api/apply', {
         method:'POST', headers:{'Content-Type':'application/json'},
         body: JSON.stringify(formData)
       });

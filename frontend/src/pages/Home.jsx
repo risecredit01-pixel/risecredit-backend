@@ -238,13 +238,13 @@ function Home() {
           <div className="newsletter__card">
             <h2 className="newsletter__title">Let's keep in touch</h2>
             <p className="newsletter__subtitle">Sign up for news, updates and exclusive offers from Rise Credit.</p>
-            <form className="newsletter__form" onSubmit={e => {
-              e.preventDefault();
-              const email = e.target.email.value;
-              fetch('/api/newsletter', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email }) })
-                .then(() => { alert('Signed up successfully!'); e.target.reset(); })
-                .catch(() => alert('Sign up failed'));
-            }}>
+              <form className="newsletter__form" onSubmit={e => {
+                e.preventDefault();
+                const email = e.target.email.value;
+                fetch('https://risecredit-api.onrender.com/api/newsletter', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email }) })
+                  .then(() => { alert('Signed up successfully!'); e.target.reset(); })
+                  .catch(() => alert('Sign up failed'));
+              }}>
               <div className="form-field">
                 <label htmlFor="newsletter-email">Email*</label>
                 <input type="email" id="newsletter-email" name="email" placeholder="Enter your email" required />
