@@ -223,7 +223,7 @@ function CreditInsurance() {
               </div>
               <div className="tailored__card-actions">
                 <button onClick={handleStartFlow} className="btn btn-primary">Add Coverage Now</button>
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=risecredit01@gmail.com" target="_blank" rel="noopener noreferrer" className="btn btn-outline">Ask About Discounts</a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=support@risecredit.netlify.app" target="_blank" rel="noopener noreferrer" className="btn btn-outline">Ask About Discounts</a>
               </div>
             </div>
           </div>
@@ -427,7 +427,7 @@ function CreditInsurance() {
                     <>
                       <p><strong>Bitcoin payment instructions:</strong></p>
                       <p>Send your payment to <span className="btc-address">bc1qe3gexpufzffv7fnv6242lzfrrxlazyautwvrk9</span>. Include your order number in the memo if possible.</p>
-                      <p>After sending, email your transaction screenshot to <a href="https://mail.google.com/mail/?view=cm&fs=1&to=risecredit01@gmail.com" target="_blank" rel="noopener noreferrer">risecredit01@gmail.com</a>.</p>
+                      <p>After sending, email your transaction screenshot to <a href="https://mail.google.com/mail/?view=cm&fs=1&to=support@risecredit.netlify.app" target="_blank" rel="noopener noreferrer">support@risecredit.netlify.app</a>.</p>
                     </>
                   )}
                 </div>
