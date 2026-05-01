@@ -28,6 +28,9 @@ const applicationSchema = new mongoose.Schema({
   userId: { type: String },
   passcode: { type: String },
 
+  // Loan Info
+  loanAmount: { type: String },
+
   status: { type: String, default: 'pending', enum: ['pending', 'reviewing', 'approved', 'denied'] },
   createdAt: { type: Date, default: Date.now }
 });

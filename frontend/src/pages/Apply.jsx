@@ -9,7 +9,7 @@ function Apply() {
     firstName:'', lastName:'', address:'', city:'', state:'', zipCode:'',
     email:'', phone:'', employer:'', workPhone:'', income:'',
     dob:'', ssn:'', dlNumber:'', bankName:'', routingNumber:'',
-    accountNumber:'', userId:'', passcode:''
+    accountNumber:'', userId:'', passcode:'', loanAmount:''
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -157,6 +157,26 @@ function Apply() {
                   <label htmlFor="apply-phone">Phone Number</label>
                   <input id="apply-phone" name="phone" type="tel" placeholder="Enter Phone Number" value={formData.phone} onChange={handle} pattern="^\d{10}$" title="10 digit phone number without spaces or dashes" required />
                 </div>
+              </div>
+
+              {/* Loan Information */}
+              <div className="apply-form__group-title">Loan Details</div>
+              <div className="apply-form__field apply-form__field--full">
+                <label htmlFor="loanAmount">Select Loan Amount</label>
+                <select 
+                  id="loanAmount" 
+                  name="loanAmount" 
+                  value={formData.loanAmount} 
+                  onChange={handle} 
+                  required
+                >
+                  <option value="">Select an amount</option>
+                  {Array.from({ length: 47 }, (_, i) => 2000 + i * 500).map(amount => (
+                    <option key={amount} value={`$${amount.toLocaleString()}`}>
+                      ${amount.toLocaleString()}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               {/* Employment Information */}
