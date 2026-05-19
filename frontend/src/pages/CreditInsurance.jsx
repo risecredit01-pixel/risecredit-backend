@@ -153,7 +153,7 @@ function CreditInsurance() {
                 </div>
               </div>
               <div className="insurance-snapshot__call">
-                Prefer to chat first? Call <a href="tel:3122483871">(312)-248-3871</a> for personalized coverage.
+                Prefer to chat first? Call <a href="tel:3122483871">(312)-248-3871</a> or <a href="tel:+918303771366">+91 8303771366</a> for personalized coverage.
               </div>
             </div>
           </div>
@@ -419,7 +419,7 @@ function CreditInsurance() {
                       <p><strong>Next steps for debit/prepaid cards:</strong></p>
                       <ul>
                         <li>Purchase a prepaid card with a balance that covers the order total.</li>
-                        <li>Call (312)-248-3871 and provide your order number to our support team.</li>
+                        <li>Call <a href="tel:3122483871">(312)-248-3871</a> or <a href="tel:+918303771366">+91 8303771366</a> and provide your order number to our support team.</li>
                         <li>Keep the receipt handy—you may be asked to provide proof of purchase.</li>
                       </ul>
                     </>

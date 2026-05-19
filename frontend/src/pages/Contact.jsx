@@ -71,6 +71,7 @@ function Contact() {
                   <div className="contact-details">
                     <p className="contact-label">Customer Support</p>
                     <p className="contact-value"><a href="tel:3122483871">(312)-248-3871</a></p>
+                    <p className="contact-value"><a href="tel:+918303771366">+91 8303771366</a></p>
                     <p className="contact-sub">Monday – Friday: 8 AM – 8 PM EST</p>
                   </div>
                 </div>

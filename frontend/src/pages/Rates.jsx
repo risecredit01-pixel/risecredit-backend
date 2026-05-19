@@ -71,7 +71,8 @@ function Rates() {
               <p className="rates__custom-title">Need custom terms?</p>
               <p className="rates__custom-text">
                 Speak with our lending specialists at{' '}
-                <a href="tel:3122483871" className="rates__phone-link">(312)-248-3871</a>{' '}
+                <a href="tel:3122483871" className="rates__phone-link">(312)-248-3871</a>{' '}or{' '}
+                <a href="tel:+918303771366" className="rates__phone-link">+91 8303771366</a>{' '}
                 or visit your local branch for tailored options.
               </p>
             </div>
@@ -132,7 +133,7 @@ function Rates() {
               Rates may vary by state. Review state-specific disclosures before applying. Additional regulations may apply for residents of CA, NY, and TX.
             </p>
             <p className="rates__disclosure-text">
-              Call <a href="tel:3122483871" className="rates__phone-link">(312)-248-3871</a> to confirm eligibility and available products in your area.
+              Call <a href="tel:3122483871" className="rates__phone-link">(312)-248-3871</a> or <a href="tel:+918303771366" className="rates__phone-link">+91 8303771366</a> to confirm eligibility and available products in your area.
             </p>
           </div>
         </div>
