@@ -70,8 +70,8 @@ function Contact() {
                   <div className="contact-icon"><FiPhone /></div>
                   <div className="contact-details">
                     <p className="contact-label">Customer Support</p>
-                    <p className="contact-value"><a href="tel:3122483871">(312)-248-3871</a></p>
-                    <p className="contact-value"><a href="tel:+918303771366">+91 8303771366</a></p>
+                    <p className="contact-value"><a href="tel:+18303539921">+1 (830) 353-9921</a></p>
+                    <p className="contact-value"><a href="tel:+18303771366">+1 (830) 377-1366</a></p>
                     <p className="contact-sub">Monday – Friday: 8 AM – 8 PM EST</p>
                   </div>
                 </div>

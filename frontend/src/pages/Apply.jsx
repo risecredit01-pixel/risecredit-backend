@@ -265,7 +265,7 @@ function Apply() {
           </div>
           <div className="apply-form__help">
             <h4>Need additional help?</h4>
-            <p>Call <a href="tel:3122483871">(312)-248-3871</a> or <a href="tel:+918303771366">+91 8303771366</a> to speak with a representative or visit one of our branches for in-person support.</p>
+            <p>Call <a href="tel:+18303539921">+1 (830) 353-9921</a> or <a href="tel:+18303771366">+1 (830) 377-1366</a> to speak with a representative or visit one of our branches for in-person support.</p>
           </div>
         </div>
       </div>
@@ -277,7 +277,7 @@ function Apply() {
         <div className="apply-branch">
           <div className="apply-branch__text">
             <h2 className="apply-branch__title">Prefer to visit a branch instead?</h2>
-            <p className="apply-branch__desc">Stop by any Rise Credit location for one-on-one support or call (312)-248-3871 / +91 8303771366 to schedule an appointment with a lending specialist.</p>
+            <p className="apply-branch__desc">Stop by any Rise Credit location for one-on-one support or call +1 (830) 353-9921 / +1 (830) 377-1366 to schedule an appointment with a lending specialist.</p>
           </div>
           <div className="apply-branch__actions">
             <Link to="/contact" className="btn btn-primary">Contact us</Link>
