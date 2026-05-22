@@ -1,9 +1,15 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowRight, FiCreditCard, FiSmartphone, FiShoppingBag } from 'react-icons/fi';
 import { Helmet } from 'react-helmet-async';
 import './Partners.css';
 
-const partners = [
+const API_BASE = window.location.hostname === 'localhost'
+  ? 'http://localhost:5000/api/admin'
+  : 'https://risecredit-api.onrender.com/api/admin';
+
+// Fallback partners used when database is empty or API fails
+const fallbackPartners = [
   {
     name: 'Visa',
     desc: 'Real-time card processing ensures that purchases and repayments clear quickly.',
@@ -27,6 +33,28 @@ const partners = [
 ];
 
 function Partners() {
+  const [partners, setPartners] = useState(fallbackPartners);
+
+  useEffect(() => {
+    const fetchPartners = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/partners`);
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+          // Map API data to the shape the page expects
+          setPartners(data.map(p => ({
+            name: p.name,
+            desc: p.description,
+            bullets: p.bullets || [],
+          })));
+        }
+      } catch (err) {
+        // Keep fallback partners on network error
+      }
+    };
+    fetchPartners();
+  }, []);
+
   return (<>
     <Helmet>
       <title>Financial Partners | Rise Credit</title>
@@ -83,7 +111,7 @@ function Partners() {
       </div>
     </section>
 
-    {/* ===== FEATURED PARTNERS ===== */}
+    {/* ===== FEATURED PARTNERS (DYNAMIC) ===== */}
     <section className="section section--alt" id="featured-partners">
       <div className="container">
         <div className="sec-header">
@@ -100,9 +128,11 @@ function Partners() {
                   <p className="partners-featured__desc">{p.desc}</p>
                 </div>
               </div>
-              <ul className="partners-featured__bullets">
-                {p.bullets.map((b, i) => <li key={i}>{b}</li>)}
-              </ul>
+              {p.bullets && p.bullets.length > 0 && (
+                <ul className="partners-featured__bullets">
+                  {p.bullets.map((b, i) => <li key={i}>{b}</li>)}
+                </ul>
+              )}
             </div>
           ))}
         </div>

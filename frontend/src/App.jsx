@@ -18,10 +18,20 @@ function ScrollToTop() {
   return null;
 }
 
+// Silent wake-up ping – Render free tier sleeps after inactivity.
+// This fires on first page load so the backend is warm by the time user needs it.
+function WakeUpBackend() {
+  useEffect(() => {
+    fetch('https://risecredit-api.onrender.com/api/health').catch(() => {});
+  }, []);
+  return null;
+}
+
 function App() {
   return (
     <>
       <ScrollToTop />
+      <WakeUpBackend />
       <Navbar />
       <main>
         <Routes>

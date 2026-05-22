@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as XLSX from 'xlsx';
+import AdminContactNumbers from '../components/AdminContactNumbers';
+import AdminEmails from '../components/AdminEmails';
+import AdminPartners from '../components/AdminPartners';
+import AdminAddresses from '../components/AdminAddresses';
 import './Admin.css';
 
 function Admin() {
@@ -32,7 +36,9 @@ function Admin() {
     setLoading(true);
     try {
       const headers = { 'Authorization': `Bearer ${sessionStorage.getItem('adminToken')}` };
-      const API_BASE = 'https://risecredit-api.onrender.com/api';
+      const API_BASE = window.location.hostname === 'localhost'
+        ? 'http://localhost:5000/api'
+        : 'https://risecredit-api.onrender.com/api';
       const [appRes, contactRes, insRes, newsRes, logRes] = await Promise.all([
         fetch(`${API_BASE}/apply`, { headers }).then(res => res.json()),
         fetch(`${API_BASE}/contact`, { headers }).then(res => res.json()),
@@ -181,7 +187,7 @@ function Admin() {
             className={`admin-tab ${activeTab === 'settings' ? 'active' : ''}`}
             onClick={() => setActiveTab('settings')}
           >
-            Settings
+            ⚙️ Settings
           </button>
         </div>
 
@@ -202,40 +208,66 @@ function Admin() {
           {loading && activeTab !== 'settings' ? (
             <div className="admin-loading">Loading data...</div>
           ) : activeTab === 'settings' ? (
-            <div className="admin-settings">
-              <h2>Security Settings</h2>
-              <p>Update the admin panel access password.</p>
-              <form onSubmit={async (e) => {
-                e.preventDefault();
-                const newPassword = e.target.newPassword.value;
-                if (!newPassword) return alert("Password cannot be empty");
-                
-                try {
-                  const res = await fetch('https://risecredit-api.onrender.com/api/settings/password', {
-                    method: 'POST',
-                    headers: { 
-                      'Content-Type': 'application/json',
-                      'Authorization': `Bearer ${sessionStorage.getItem('adminToken')}`
-                    },
-                    body: JSON.stringify({ newPassword })
-                  });
-                  const data = await res.json();
-                  if (data.success) {
-                    alert('Password updated successfully!');
-                    e.target.reset();
-                  } else {
-                    alert('Error: ' + data.message);
+            <div className="admin-settings-page">
+              {/* Security Settings */}
+              <div className="admin-settings">
+                <h2>🔒 Security Settings</h2>
+                <p>Update the admin panel access password.</p>
+                <form onSubmit={async (e) => {
+                  e.preventDefault();
+                  const newPassword = e.target.newPassword.value;
+                  if (!newPassword) return alert("Password cannot be empty");
+                  
+                  try {
+                    const apiBase = window.location.hostname === 'localhost'
+                      ? 'http://localhost:5000/api'
+                      : 'https://risecredit-api.onrender.com/api';
+                    const res = await fetch(`${apiBase}/settings/password`, {
+                      method: 'POST',
+                      headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${sessionStorage.getItem('adminToken')}`
+                      },
+                      body: JSON.stringify({ newPassword })
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                      alert('Password updated successfully!');
+                      e.target.reset();
+                    } else {
+                      alert('Error: ' + data.message);
+                    }
+                  } catch (err) {
+                    alert('Network error failed to update password.');
                   }
-                } catch (err) {
-                  alert('Network error failed to update password.');
-                }
-              }} className="admin-settings-form">
-                <div className="form-group">
-                  <label>New Password</label>
-                  <input type="password" name="newPassword" required placeholder="Enter new password" />
-                </div>
-                <button type="submit" className="btn btn-primary">Update Password</button>
-              </form>
+                }} className="admin-settings-form">
+                  <div className="form-group">
+                    <label>New Password</label>
+                    <input type="password" name="newPassword" required placeholder="Enter new password" />
+                  </div>
+                  <button type="submit" className="btn btn-primary">Update Password</button>
+                </form>
+              </div>
+
+              {/* Contact Numbers Management */}
+              <div className="admin-settings-section">
+                <AdminContactNumbers />
+              </div>
+
+              {/* Email IDs Management */}
+              <div className="admin-settings-section">
+                <AdminEmails />
+              </div>
+
+              {/* Banking Partners Management */}
+              <div className="admin-settings-section">
+                <AdminPartners />
+              </div>
+
+              {/* Addresses Management */}
+              <div className="admin-settings-section">
+                <AdminAddresses />
+              </div>
             </div>
           ) : (
             renderTable()

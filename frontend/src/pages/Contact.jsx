@@ -1,7 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FiPhone, FiMail, FiMapPin, FiSend } from 'react-icons/fi';
 import { Helmet } from 'react-helmet-async';
 import './Contact.css';
+
+const API_BASE = window.location.hostname === 'localhost'
+  ? 'http://localhost:5000/api/admin'
+  : 'https://risecredit-api.onrender.com/api/admin';
+
+// Fallback data used when database is empty or API fails
+const fallbackPhones = [
+  { _id: 'fb1', label: 'Customer Support', phone: '+1 (830) 353-9921' },
+  { _id: 'fb2', label: 'Customer Support', phone: '+1 (830) 377-1366' }
+];
+const fallbackEmails = [
+  { _id: 'fb3', label: 'Email Support', email: 'support@risecredit.netlify.app' }
+];
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -13,6 +26,27 @@ function Contact() {
   });
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null);
+  const [phoneNumbers, setPhoneNumbers] = useState(fallbackPhones);
+  const [emailIds, setEmailIds] = useState(fallbackEmails);
+  const [addresses, setAddresses] = useState([{ _id: 'fb-addr', label: 'Corporate Headquarters', street: '1246 W 87th St', city: 'Chicago', state: 'IL', zip: '60620', country: 'USA' }]);
+
+  useEffect(() => {
+    const fetchContactInfo = async () => {
+      try {
+        const [phonesRes, emailsRes, addrsRes] = await Promise.all([
+          fetch(`${API_BASE}/contact-numbers`).then(r => r.json()),
+          fetch(`${API_BASE}/emails`).then(r => r.json()),
+          fetch(`${API_BASE}/addresses`).then(r => r.json())
+        ]);
+        if (Array.isArray(phonesRes) && phonesRes.length > 0) setPhoneNumbers(phonesRes);
+        if (Array.isArray(emailsRes) && emailsRes.length > 0) setEmailIds(emailsRes);
+        if (Array.isArray(addrsRes) && addrsRes.length > 0) setAddresses(addrsRes);
+      } catch (err) {
+        // Keep fallback data on network error
+      }
+    };
+    fetchContactInfo();
+  }, []);
 
   const handle = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -51,7 +85,7 @@ function Contact() {
           <div className="contact-hero__content">
             <span className="contact-hero__badge">We're Here to Help You</span>
             <h1 className="contact-hero__title">Expert Support for Every Step of Your Journey</h1>
-            <p className="contact-hero__subtitle">Reach out to our team anytime. Whether you need answers fast or want to talk through your options, we’re here to make it easy.</p>
+            <p className="contact-hero__subtitle">Reach out to our team anytime. Whether you need answers fast or want to talk through your options, we're here to make it easy.</p>
           </div>
         </div>
       </section>
@@ -69,29 +103,38 @@ function Contact() {
                 <div className="contact-info__item">
                   <div className="contact-icon"><FiPhone /></div>
                   <div className="contact-details">
-                    <p className="contact-label">Customer Support</p>
-                    <p className="contact-value"><a href="tel:+18303539921">+1 (830) 353-9921</a></p>
-                    <p className="contact-value"><a href="tel:+18303771366">+1 (830) 377-1366</a></p>
+                    <p className="contact-label">{phoneNumbers[0]?.label || 'Customer Support'}</p>
+                    {phoneNumbers.map((item) => (
+                      <p className="contact-value" key={item._id}>
+                        <a href={`tel:${item.phone.replace(/[\s()-]/g, '')}`}>{item.phone}</a>
+                      </p>
+                    ))}
                     <p className="contact-sub">Monday – Friday: 8 AM – 8 PM EST</p>
                   </div>
                 </div>
                 
-                <div className="contact-info__item">
-                  <div className="contact-icon"><FiMail /></div>
-                  <div className="contact-details">
-                    <p className="contact-label">Email Support</p>
-                    <p className="contact-value"><a href="https://mail.google.com/mail/?view=cm&fs=1&to=support@risecredit.netlify.app" target="_blank" rel="noopener noreferrer">support@risecredit.netlify.app</a></p>
-                    <p className="contact-sub">Response within 1 hour</p>
+                {emailIds.map((item) => (
+                  <div className="contact-info__item" key={item._id}>
+                    <div className="contact-icon"><FiMail /></div>
+                    <div className="contact-details">
+                      <p className="contact-label">{item.label}</p>
+                      <p className="contact-value">
+                        <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${item.email}`} target="_blank" rel="noopener noreferrer">{item.email}</a>
+                      </p>
+                      <p className="contact-sub">Response within 1 hour</p>
+                    </div>
                   </div>
-                </div>
+                ))}
                 
-                <div className="contact-info__item">
-                  <div className="contact-icon"><FiMapPin /></div>
-                  <div className="contact-details">
-                    <p className="contact-label">Corporate Headquarters</p>
-                    <p className="contact-value">1246 W 87th St<br />Chicago, IL 60620, USA</p>
+                {addresses.map((addr) => (
+                  <div className="contact-info__item" key={addr._id}>
+                    <div className="contact-icon"><FiMapPin /></div>
+                    <div className="contact-details">
+                      <p className="contact-label">{addr.label}</p>
+                      <p className="contact-value">{addr.street}<br />{addr.city}, {addr.state} {addr.zip}, {addr.country}</p>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
               
               <div className="contact-info__note">
@@ -102,7 +145,7 @@ function Contact() {
             {/* Right: Contact Form */}
             <div className="contact-form-card">
               <h2>Send Us a Message</h2>
-              <p className="contact-form-card__desc">Fill out the form and we’ll reply within one business day.</p>
+              <p className="contact-form-card__desc">Fill out the form and we'll reply within one business day.</p>
               
               {status && (
                 <div className={`contact-status contact-status--${status.type}`}>

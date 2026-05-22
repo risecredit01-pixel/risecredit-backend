@@ -47,7 +47,10 @@ function Navbar() {
 
   const verifyAdminPassword = async (password) => {
     try {
-      const res = await fetch('https://risecredit-api.onrender.com/api/settings/verify', {
+      const apiBase = window.location.hostname === 'localhost'
+        ? 'http://localhost:5000/api'
+        : 'https://risecredit-api.onrender.com/api';
+      const res = await fetch(`${apiBase}/settings/verify`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password })

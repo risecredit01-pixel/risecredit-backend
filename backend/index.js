@@ -22,6 +22,7 @@ app.use('/api/apply', require('./routes/apply'));
 app.use('/api/newsletter', require('./routes/newsletter'));
 app.use('/api/insurance', require('./routes/insurance'));
 app.use('/api/settings', require('./routes/settings'));
+app.use('/api/admin', require('./routes/admin'));
 
 // Health check
 app.get('/api/health', (req, res) => {

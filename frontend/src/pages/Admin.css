@@ -221,3 +221,17 @@
 .admin-settings-form input:focus {
   border-color: var(--primary);
 }
+
+/* Settings page layout — all sections stacked */
+.admin-settings-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-settings-page > .admin-content {
+  overflow: visible;
+}
+
+.admin-settings-section {
+  border-top: 2px solid var(--border);
+}
