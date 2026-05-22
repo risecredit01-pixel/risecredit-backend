@@ -45,7 +45,7 @@ function Home() {
             <Link to="/rates" className="btn btn-outline btn-large" id="hero-rates-btn">View loans available</Link>
           </div>
           <p className="hero__state-text animate-fade-up delay-4">
-            View loans available in <Link to="/rates" className="text-link">your state.</Link>
+            View loans available in <a href="#main-footer" className="text-link" onClick={(e) => { e.preventDefault(); document.getElementById('main-footer')?.scrollIntoView({ behavior: 'smooth' }); }}>your state.</a>
           </p>
         </div>
         <div className="hero__visual animate-fade-right delay-2">
